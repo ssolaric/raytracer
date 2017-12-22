@@ -1,5 +1,4 @@
-#ifndef AUXILIAR_H
-#define AUXILIAR_H
+#pragma once
 
 #include <iostream>
 #include <fstream>
@@ -111,7 +110,7 @@ struct Mesh {
     float scale;
     glm::vec3 vec_maxz_malla; // (0, 0, maxz)
 
-    Mesh(const char* filename, const glm::mat4& matriz = glm::mat4(1.0f)): matriz_transformacion(matriz) {
+    Mesh(const std::string& filename, const glm::mat4& matriz = glm::mat4(1.0f)): matriz_transformacion(matriz) {
         std::ifstream ifs(filename);
         if (!ifs) {
             std::cerr << "No se encontró el archivo.\n";
@@ -192,5 +191,3 @@ struct Mesh {
     }
 
 };
-
-#endif /* AUXILIAR_H */

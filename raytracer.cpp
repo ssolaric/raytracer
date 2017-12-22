@@ -15,7 +15,7 @@
 
 #include "auxiliar.h"
 
-void guardar_imagen(const char* filename, glm::vec3* imagen, int width, int height) {
+void guardar_imagen(const std::string& filename, glm::vec3* imagen, int width, int height) {
     std::ofstream ofs(filename, std::ios::out | std::ios::binary);
     ofs << "P6\n" << width << " " << height << "\n255\n";
     for (int i = 0; i < height * width; i++) {
@@ -43,9 +43,8 @@ glm::vec3 lanzar_rayo(const Rayo& rayo, const Mesh& mesh) {
     }
 }
 
-void prueba_malla() {
-    
-    Mesh malla("m1808.off");
+void prueba_malla(const std::string& nombre_archivo) {
+    Mesh malla(nombre_archivo + ".off");
     
     glm::mat4 mandar_al_centro = 
         glm::scale(glm::mat4(1.0f), glm::vec3(malla.scale)) *
@@ -107,12 +106,24 @@ void prueba_malla() {
             *pixel /= 4;
         }
     }
-    guardar_imagen("m1808.ppm", imagen, width, height);
+    guardar_imagen(nombre_archivo + ".ppm", imagen, width, height);
     delete[] imagen;
 }
 
+int main(int argc, char* argv[]) {
+    if (argc != 2) {
+        std::cout << "Uso: ./raytracer.out <archivo OFF>\n";
+        std::exit(1);
+    }
+    std::string nombre_archivo(argv[1]);
+    auto ind = nombre_archivo.find(".off");
+    if (ind == std::string::npos) {
+        std::cout << "El archivo no es de formato OFF.\n";
+        std::exit(1);
+    }
 
-int main(int argc, char **argv) {
-    prueba_malla();
+    nombre_archivo = nombre_archivo.substr(0, ind);
+
+    prueba_malla(nombre_archivo);
     return 0;
 }
