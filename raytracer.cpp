@@ -1,13 +1,5 @@
-// Para compilar: g++ raytracer.cpp -o raytracer.out -I"./glm-0.9.7.3/glm" -O3
-
-#include <cstdlib>
-#include <cstdio>
-#include <cmath>
-#include <fstream>
-#include <vector>
 #include <iostream>
-#include <cassert>
-#include <limits>
+#include <fstream>
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
